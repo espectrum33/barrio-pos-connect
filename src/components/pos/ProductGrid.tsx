@@ -26,9 +26,9 @@ export function ProductGrid() {
   });
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col flex-1 min-h-0">
       {/* Search bar */}
-      <div className="p-4 bg-card border-b border-border sticky top-0 z-10">
+      <div className="p-4 bg-card border-b border-border">
         <div className="relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
           <Input
