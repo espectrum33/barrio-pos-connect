@@ -1,0 +1,16 @@
+{
+  "name": "Mi Tienda POS",
+  "short_name": "POS",
+  "description": "Sistema punto de venta con WhatsApp para tiendas de barrio",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fdf8f3",
+  "theme_color": "#f97316",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64",
+      "type": "image/x-icon"
+    }
+  ]
+}
