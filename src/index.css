@@ -179,6 +179,15 @@
   75% { transform: translateX(5px); }
 }
 
+@keyframes scroll-x {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
 .animate-slide-up {
   animation: slide-up 0.3s ease-out;
 }
@@ -189,4 +198,8 @@
 
 .animate-shake {
   animation: shake 0.3s ease-in-out;
+}
+
+.animate-scroll-x {
+  animation: scroll-x 20s linear infinite;
 }
