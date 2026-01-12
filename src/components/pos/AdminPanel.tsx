@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Save, Store, CreditCard, MessageCircle, Package } from 'lucide-react';
+import { Save } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -15,6 +15,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { formatCurrency } from '@/lib/whatsapp';
+import { StatsPanel } from './StatsPanel';
 
 const COLOMBIAN_BANKS = [
   'Bancolombia',
@@ -62,68 +63,22 @@ export function AdminPanel() {
   return (
     <div className="h-full flex flex-col bg-background">
       <div className="p-4 border-b border-border bg-card">
-        <h2 className="text-lg font-bold flex items-center gap-2">
+        <h2 className="text-xl font-display font-bold flex items-center gap-2">
           ⚙️ Panel de Administración
         </h2>
       </div>
       
       <Tabs defaultValue="stats" className="flex-1 flex flex-col overflow-hidden">
-        <TabsList className="mx-4 mt-4 grid grid-cols-4">
-          <TabsTrigger value="stats" className="text-xs sm:text-sm">📊 Stats</TabsTrigger>
+        <TabsList className="mx-4 mt-4 grid grid-cols-4 h-12">
+          <TabsTrigger value="stats" className="text-xs sm:text-sm">📊 Estadísticas</TabsTrigger>
           <TabsTrigger value="business" className="text-xs sm:text-sm">🏪 Negocio</TabsTrigger>
           <TabsTrigger value="payments" className="text-xs sm:text-sm">💳 Pagos</TabsTrigger>
           <TabsTrigger value="products" className="text-xs sm:text-sm">📦 Stock</TabsTrigger>
         </TabsList>
         
         {/* Stats Tab */}
-        <TabsContent value="stats" className="flex-1 p-4 overflow-y-auto space-y-4">
-          <div className="grid grid-cols-2 gap-4">
-            <div className="card-elevated p-4">
-              <p className="text-sm text-muted-foreground mb-1">Ventas Hoy</p>
-              <p className="text-2xl font-bold text-primary">{formatCurrency(todayTotal)}</p>
-              <p className="text-xs text-muted-foreground">{todaySales.length} transacciones</p>
-            </div>
-            <div className="card-elevated p-4">
-              <p className="text-sm text-muted-foreground mb-1">Productos Activos</p>
-              <p className="text-2xl font-bold">{products.filter(p => p.active).length}</p>
-              <p className="text-xs text-muted-foreground">de {products.length} total</p>
-            </div>
-          </div>
-          
-          {lowStockProducts.length > 0 && (
-            <div className="card-elevated p-4 border-l-4 border-l-warning">
-              <h3 className="font-bold text-warning mb-2">⚠️ Stock Bajo ({lowStockProducts.length})</h3>
-              <div className="space-y-2">
-                {lowStockProducts.slice(0, 5).map(p => (
-                  <div key={p.id} className="flex items-center justify-between text-sm">
-                    <span>{p.emoji} {p.name}</span>
-                    <span className="font-bold text-warning">{p.stock} unidades</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-          
-          {/* Recent sales */}
-          <div className="card-elevated p-4">
-            <h3 className="font-bold mb-3">📈 Últimas Ventas</h3>
-            <div className="space-y-2">
-              {sales.slice(0, 5).map(sale => (
-                <div key={sale.id} className="flex items-center justify-between text-sm p-2 bg-muted/50 rounded">
-                  <div>
-                    <span className="font-mono text-xs">{sale.code}</span>
-                    <span className="text-muted-foreground ml-2">
-                      {sale.items.length} items
-                    </span>
-                  </div>
-                  <span className="font-bold text-primary">{formatCurrency(sale.total)}</span>
-                </div>
-              ))}
-              {sales.length === 0 && (
-                <p className="text-muted-foreground text-center py-4">Sin ventas aún</p>
-              )}
-            </div>
-          </div>
+        <TabsContent value="stats" className="flex-1 p-4 overflow-y-auto">
+          <StatsPanel />
         </TabsContent>
         
         {/* Business Tab */}
