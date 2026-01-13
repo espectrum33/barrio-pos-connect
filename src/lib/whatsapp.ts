@@ -249,3 +249,60 @@ export function timeAgo(dateString: string): string {
   if (seconds < 86400) return `Hace ${Math.floor(seconds / 3600)} horas`;
   return `Hace ${Math.floor(seconds / 86400)} días`;
 }
+
+// WhatsApp notification messages for order status updates
+export function generateStatusNotification(
+  orderCode: string,
+  status: string,
+  customerName: string,
+  businessName: string,
+  total?: number
+): string {
+  const name = customerName || 'Cliente';
+  
+  switch (status) {
+    case 'pending':
+      return `⏳ Hola ${name}!\n\n` +
+        `Tu pedido *${orderCode}* ha sido recibido en *${businessName}*.\n\n` +
+        `💰 Total: ${total ? formatCurrency(total) : ''}\n\n` +
+        `Estamos esperando la confirmación de tu pago.\n` +
+        `📸 Envía tu comprobante cuando pagues.\n\n` +
+        `¡Gracias por tu preferencia! 🙏`;
+    
+    case 'paid':
+      return `✅ Hola ${name}!\n\n` +
+        `¡Recibimos tu pago! Tu pedido *${orderCode}* está confirmado.\n\n` +
+        `👨‍🍳 Ya estamos preparando tu pedido.\n` +
+        `Te avisaremos cuando esté listo.\n\n` +
+        `¡Gracias por confiar en *${businessName}*! 🎉`;
+    
+    case 'ready':
+      return `🎉 Hola ${name}!\n\n` +
+        `¡Tu pedido *${orderCode}* está LISTO!\n\n` +
+        `📦 Puedes pasar a recogerlo o espera tu domicilio.\n\n` +
+        `¡Te esperamos en *${businessName}*! 🏪`;
+    
+    case 'delivered':
+      return `🚀 Hola ${name}!\n\n` +
+        `Tu pedido *${orderCode}* ha sido entregado.\n\n` +
+        `¡Gracias por tu compra en *${businessName}*! ❤️\n\n` +
+        `Esperamos verte pronto de nuevo. 🙌`;
+    
+    case 'completed':
+      return `⭐ Hola ${name}!\n\n` +
+        `Tu pedido *${orderCode}* ha sido completado.\n\n` +
+        `¡Gracias por comprar en *${businessName}*! 🎊\n\n` +
+        `¿Te gustó? ¡Cuéntanos tu experiencia! 💬`;
+    
+    case 'cancelled':
+      return `❌ Hola ${name}.\n\n` +
+        `Tu pedido *${orderCode}* ha sido cancelado.\n\n` +
+        `Si tienes alguna pregunta, contáctanos.\n\n` +
+        `*${businessName}*`;
+    
+    default:
+      return `📋 Actualización de tu pedido *${orderCode}*\n\n` +
+        `Estado: ${status}\n\n` +
+        `*${businessName}*`;
+  }
+}
